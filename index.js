@@ -11,7 +11,8 @@ const SCOPES = [
   'https://www.googleapis.com/auth/drive.scripts',
   'https://www.googleapis.com/auth/script.external_request',
   'https://www.googleapis.com/auth/forms',
-  'https://www.googleapis.com/auth/script.send_mail'];
+  'https://www.googleapis.com/auth/script.send_mail',
+  'https://www.googleapis.com/auth/script.scriptapp'];
 // The file token.json stores the user's access and refresh tokens, and is
 // created automatically when the authorization flow completes for the first
 // time.
@@ -66,7 +67,7 @@ function getAccessToken(oAuth2Client) {
   });
   console.log('Authorize this app by visiting this url:', authUrl);
 
-  const code = `4/bgFh5KKCc8J9-ZOgrFY4MAGru9uvNQMkcEC7TX1ayLvJ4ZT4l6oXfWA`;
+  const code = `4/bgGOed7k42uZmGuhzVN6uBKg-cUFVa9QEzVHFhGx2hliagKvKHOy2TA`;
   oAuth2Client.getToken(code, (err, token) => {
     if (err) { return console.error('Error retrieving access token', err); }
     oAuth2Client.setCredentials(token);
@@ -82,11 +83,18 @@ function getAccessToken(oAuth2Client) {
 const scriptId = '1alo9ACPN6dBQNK30CGlflhqenkIADph1hHOOWr2F8-PF1cn_3hs3f3j5';
 async function callAppsScript() {
   try {
-
     const formId = '1k5TNMTd5yLydOBPHxNyMf9bbeXGrY0DilYhlHnKA_Js';
     const auth = await authorize();
-
     const script = google.script({ version: 'v1', auth: auth });
+    await script.scripts.run({
+      auth: auth,
+      resource: {
+        function: 'doPost',
+        parameters: [
+        ],
+      },
+      scriptId: scriptId,
+    })
     //const rs = await script.projects.versions.list({ scriptId: scriptId }); // ok
     // const rs = await script.projects.getContent({
     //   scriptId: scriptId
@@ -99,29 +107,36 @@ async function callAppsScript() {
     //   q: `trashed=false and mimeType='application/vnd.google-apps.form'`
     // })
 
-    // get google forms
-    // return [{id, title, editLink, publicLink, thumbnaiLink, name}]
-
-
-
-    console.log(JSON.stringify(formApps))
-
-
-
-    console.log('call api end')
-    // return formatResult(rs);
   } catch (error) {
     console.log(error);
   }
 }
 
-//callAppsScript();
+callAppsScript();
 const express = require('express')
 const app = express()
 var bodyParser = require('body-parser')
 var jsonParser = bodyParser.json()
 // parse application/json
 app.use(bodyParser.json())
+
+// app.listen(5000, async () => {
+//   const auth = await authorize();
+//   app.set('auth', auth)
+//   console.log(`Server start at ${5000}`)
+// })
+
+app.post('/form/', jsonParser, async function (req, res) {
+  const rs = await createForm(app.get('auth'), req.body);
+  res.setHeader('Content-Type', 'application/json');
+  res.send(rs);
+})
+
+app.post('/form/:id/add-trigger-on-submit', jsonParser, async function (req, res) {
+  const rs = await addTriggerOnSubmitToForm(app.get('auth'), req.params.id);
+  res.setHeader('Content-Type', 'application/json');
+  res.send(rs);
+})
 
 app.get('/form/:id/responses', jsonParser, async function (req, res) {
   const rs = await getFormResponse(app.get('auth'), req.params.id);
@@ -142,11 +157,52 @@ app.get('/form-list', async function (req, res) {
   res.send(rs);
 })
 
-app.listen(5000, async () => {
-  const auth = await authorize();
-  app.set('auth', auth)
-  console.log(`Server start at ${5000}`)
-})
+
+
+const createForm = async (auth, data) => {
+  const script = google.script({ version: 'v1', auth: auth });
+  return new Promise((resolve, reject) => {
+    script.scripts.run({
+      auth: auth,
+      resource: {
+        function: 'createForm',
+        parameters: [
+          data.formName
+        ],
+      },
+      scriptId: scriptId,
+    }).then((rs) => {
+      // const data = rs.data.response.result;
+      // return data ? JSON.parse(data) : [];
+      resolve(rs.data)
+    }).catch((error) => {
+      reject(new Error(error))
+    })
+  })
+}
+
+
+const addTriggerOnSubmitToForm = async (auth, formId) => {
+  const script = google.script({ version: 'v1', auth: auth });
+  return new Promise((resolve, reject) => {
+    script.scripts.run({
+      auth: auth,
+      resource: {
+        function: 'addTriggerOnSubmitToForm',
+        parameters: [
+          formId
+        ],
+      },
+      scriptId: scriptId,
+    }).then((rs) => {
+      // const data = rs.data.response.result;
+      // return data ? JSON.parse(data) : [];
+      resolve(rs.data)
+    }).catch((error) => {
+      reject(new Error(error))
+    })
+  })
+}
 
 const getFormResponse = async (auth, formId) => {
   const script = google.script({ version: 'v1', auth: auth });
