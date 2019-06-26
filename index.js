@@ -112,19 +112,21 @@ async function callAppsScript() {
   }
 }
 
-callAppsScript();
+//callAppsScript();
 const express = require('express')
 const app = express()
 var bodyParser = require('body-parser')
 var jsonParser = bodyParser.json()
+var cors = require('cors');
+app.use(cors());
 // parse application/json
 app.use(bodyParser.json())
 
-// app.listen(5000, async () => {
-//   const auth = await authorize();
-//   app.set('auth', auth)
-//   console.log(`Server start at ${5000}`)
-// })
+app.listen(5000, async () => {
+  const auth = await authorize();
+  app.set('auth', auth)
+  console.log(`Server start at ${5000}`)
+})
 
 app.post('/form/', jsonParser, async function (req, res) {
   const rs = await createForm(app.get('auth'), req.body);

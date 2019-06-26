@@ -12,6 +12,7 @@
     "@types/google-apps-script": "0.0.53",
     "babel": "^6.23.0",
     "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "googleapis": "^40.0.0",
     "lodash": "^4.17.11"
