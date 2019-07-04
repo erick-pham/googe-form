@@ -1,0 +1,14 @@
+{
+  "installed": {
+    "client_id": "226028476132-98do98pbqk6a1u5voa12qodbtdgg498s.apps.googleusercontent.com",
+    "project_id": "form-management-244204",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_secret": "Om7V2RfwULwVhpFND06kI6zD",
+    "redirect_uris": [
+      "urn:ietf:wg:oauth:2.0:oob",
+      "http://localhost"
+    ]
+  }
+}

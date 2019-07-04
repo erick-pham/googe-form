@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<base target="_top">
+    <link href="https://ssl.gstatic.com/docs/script/css/add-ons1.css" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
+</head>
+<body>
+
+</body>
+</html>
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<base target="_top">
+<script>
+$(function(){
+
+$("#button").click(function() {
+  //alert( "Handler for .click() called." );
+  
+  createForm();
+  console.log("click btn")
+});
+
+function onSuccess() {
+var div = document.getElementById('output');
+div.innerHTML = 'ok';
+}
+
+function onFail() {
+var div = document.getElementById('output');
+div.innerHTML = 'ok';
+}
+
+function createForm() {
+var formInput = document.getElementById('formId');
+console.log(formInput.value );
+
+google.script.run
+.withSuccessHandler(onSuccess)
+.withFailureHandler(onFail)
+.addTriggerOnSubmitToForm(formInput.value);
+}
+
+});
+
+</script>
+</head>
+<body>
+<div id="output"></div>
+<input type="intext" value="form ID" id="formId"/>
+<input type="button" value="Not Clicked" id="button"/>
+</body>
+</html>

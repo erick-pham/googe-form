@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<base target="_blank">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Registration</title>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+<style>
+.disclaimer{width: 480px; color:#646464;margin:20px auto;padding:0 16px;text-align:center;font:400 12px Roboto,Helvetica,Arial,sans-serif}.disclaimer a{color:#009688}#credit{display:none}
+</style>
+    <link href="https://ssl.gstatic.com/docs/script/css/add-ons1.css" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
+</head>
+<body>
+
+<form class="main" id="form" novalidate="novalidate" style="max-width: 480px;margin: 40px auto;">
+<div id="forminner">
+<div class="row">
+<div class="col s12">
+<h5 class="center-align teal-text">Registration</h5>
+<p class="disclaimer">Fill up all fields.</p>
+</div>
+</div>
+<div class="row">
+<div class="input-field col s12">
+<input id="name" type="text" name="Name" class="validate" required="" aria-required="true">
+<label for="name">Name</label>
+</div>
+</div>
+<div class="row">
+<div class="input-field col s12">
+<input id="pid" type="text" name="Pid" class="validate" required="" aria-required="true">
+<label for="pid">Pid</label>
+</div>
+</div>      
+<div class="row">
+<div class="input-field col s12">
+<input id="email" type="email" name="Email" class="validate" required="" aria-required="true">
+<label for="email">Email Address</label>
+</div>
+</div>
+<div class="row">
+<div class="input-field col s12">
+<input id="tel" type="tel" name="Tel" class="validate" required="" aria-required="true">
+<label for="tel">Telephone</label>
+</div>
+</div>
+<div class="row">
+<div class="input-field col s12">
+<select id="position" name="position">
+<option value="" disabled selected>Position</option>
+<option value="Head">Head</option>
+<option value="Assistant">Assistant</option>
+<option value="Secretary">Secretary</option>
+<option value="Others">Others</option>
+</select>
+</div>
+</div>
+
+<div class="row">
+<div class="file-field input-field col s12">
+<div class="btn">
+<span>File</span>
+<input id="files" type="file">
+</div>
+<div class="file-path-wrapper">
+<input class="file-path validate" type="text" placeholder="Select a file on your computer">
+</div>
+</div>
+</div>
+
+<div class="row">
+<div class="input-field col s6">
+<button class="waves-effect waves-light btn submit-btn" type="submit" onclick="submitForm(); return false;">Submit</button>
+</div>
+</div>
+<div class="row">
+<div class="input-field col s12" id = "progress">
+</div>
+</div>
+</div>
+<div id="success" style="display:none">
+<h5 class="left-align teal-text">File Uploaded</h5>
+<p>Your file has been successfully uploaded.</p>
+<p class="center-align"><a  class="btn btn-large" onclick="restartForm()" >Restart</a></p>
+</div>
+</form>
+
+</body>
+
+</html>

@@ -1,0 +1,15 @@
+{
+  "token": {
+    "access_token": "ya29.Gls0B9GgAghY2RSOixySy_h8rzQy-avSAh3W1j91QWj0hnhXdH419y0RezE9iRYUQRYTWW5Y8F4y9CG0GXg2IiwkB1BCycN6-l1PxtdaG-GQSXj7rms7gGQXhaWj",
+    "refresh_token": "1/1MpOJAhOPInO4X-lRBq9fMP2Be5Bb74bEYVceao_pDM",
+    "scope": "https://www.googleapis.com/auth/script.webapp.deploy https://www.googleapis.com/auth/script.scriptapp https://www.googleapis.com/auth/forms https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/script.send_mail",
+    "token_type": "Bearer",
+    "expiry_date": 1561619138118
+  },
+  "oauth2ClientSettings": {
+    "clientId": "226028476132-98do98pbqk6a1u5voa12qodbtdgg498s.apps.googleusercontent.com",
+    "clientSecret": "Om7V2RfwULwVhpFND06kI6zD",
+    "redirectUri": "urn:ietf:wg:oauth:2.0:oob"
+  },
+  "isLocalCreds": true
+}

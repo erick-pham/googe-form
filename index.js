@@ -44,6 +44,7 @@ const authorize = async () => {
     fileContent = await fs.readFileSync(TOKEN_PATH);
 
     if (fileContent.length) {
+      oAuth2Client.setCredentials
       oAuth2Client.setCredentials(JSON.parse(fileContent));
       return oAuth2Client;
     } else {
@@ -86,12 +87,11 @@ async function callAppsScript() {
     const formId = '1k5TNMTd5yLydOBPHxNyMf9bbeXGrY0DilYhlHnKA_Js';
     const auth = await authorize();
     const script = google.script({ version: 'v1', auth: auth });
-    await script.scripts.run({
+    const rs = await script.scripts.run({
       auth: auth,
       resource: {
-        function: 'doPost',
-        parameters: [
-        ],
+        function: 'createForm',
+        parameters: ['test'],
       },
       scriptId: scriptId,
     })
@@ -106,13 +106,13 @@ async function callAppsScript() {
     // const rs = await drive.files.list({
     //   q: `trashed=false and mimeType='application/vnd.google-apps.form'`
     // })
-
+    console.log(rs.data.error.details)
   } catch (error) {
     console.log(error);
   }
 }
 
-//callAppsScript();
+callAppsScript();
 const express = require('express')
 const app = express()
 var bodyParser = require('body-parser')
@@ -122,11 +122,11 @@ app.use(cors());
 // parse application/json
 app.use(bodyParser.json())
 
-app.listen(5000, async () => {
-  const auth = await authorize();
-  app.set('auth', auth)
-  console.log(`Server start at ${5000}`)
-})
+// app.listen(5000, async () => {
+//   const auth = await authorize();
+//   app.set('auth', auth)
+//   console.log(`Server start at ${5000}`)
+// })
 
 app.post('/form/', jsonParser, async function (req, res) {
   const rs = await createForm(app.get('auth'), req.body);
