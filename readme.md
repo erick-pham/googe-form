@@ -54,7 +54,7 @@ var options = {
     'username': 'toan.pham@unicorn-fintech.com',
     'password': '000000'}
 };
-var token = UrlFetchApp.fetch('https://dev-mgis.360f.com:18040/api/v1/auth/token', options);
+var token = UrlFetchApp.fetch('https://dev-mgis.com:18040/api/v1/auth/token', options);
   Logger.log(token);
 }
 
